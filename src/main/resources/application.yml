@@ -1,0 +1,42 @@
+#配置数据源
+spring:
+  redis:
+    port: 6379
+    host: 127.0.0.1
+#    maxTotal: 50
+#    maxIdle: 10
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/fresh?useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/static/,file:${web.upload-path}
+web:
+  #windows系统配置路径
+#  upload-path: D:/project/fresh/GoodsPhoto/
+  upload-path: E:\我的发货\Springboot生鲜水果商城\图片素材\GoodsPhoto\
+
+  #Mac系统配置路径
+  #upload-path: /Users/hanmeng/Desktop/java源码/Springboot生鲜水果商城/源码/GoodsPhoto/
+#配置mybatis
+#配置扫描mapper文件的路径
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #配置实体包路径
+  type-aliases-package: com.softeem.fresh.entity
+  #配置Thymeleaf
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

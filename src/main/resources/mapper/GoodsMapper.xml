@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softeem.fresh.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.softeem.fresh.entity.Goods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="gross" jdbcType="VARCHAR" property="gross" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="groupid" jdbcType="VARCHAR" property="groupid" />
+    <result column="pack" jdbcType="VARCHAR" property="pack" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="count" jdbcType="DOUBLE" property="count" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.softeem.fresh.entity.Goods">
+    <result column="reserved3" jdbcType="LONGVARCHAR" property="reserved3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, brand, name, no, gross, place, weight, groupid, pack, address, photo, msg, price, 
+    count, dr, reserved1, reserved2
+  </sql>
+  <sql id="Blob_Column_List">
+    reserved3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.softeem.fresh.entity.Goods">
+    insert into goods (id, brand, name, 
+      no, gross, place, weight, 
+      groupid, pack, address, 
+      photo, msg, price, count, 
+      dr, reserved1, reserved2, 
+      reserved3)
+    values (#{id,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{no,jdbcType=VARCHAR}, #{gross,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{groupid,jdbcType=VARCHAR}, #{pack,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{count,jdbcType=DOUBLE}, 
+      #{dr,jdbcType=INTEGER}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softeem.fresh.entity.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="gross != null">
+        gross,
+      </if>
+      <if test="place != null">
+        place,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="pack != null">
+        pack,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="msg != null">
+        msg,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="reserved1 != null">
+        reserved1,
+      </if>
+      <if test="reserved2 != null">
+        reserved2,
+      </if>
+      <if test="reserved3 != null">
+        reserved3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="gross != null">
+        #{gross,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="pack != null">
+        #{pack,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=DOUBLE},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null">
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        #{reserved3,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softeem.fresh.entity.Goods">
+    update goods
+    <set>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="gross != null">
+        gross = #{gross,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="pack != null">
+        pack = #{pack,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=DOUBLE},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.softeem.fresh.entity.Goods">
+    update goods
+    set brand = #{brand,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      gross = #{gross,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=VARCHAR},
+      pack = #{pack,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      count = #{count,jdbcType=DOUBLE},
+      dr = #{dr,jdbcType=INTEGER},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR},
+      reserved3 = #{reserved3,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softeem.fresh.entity.Goods">
+    update goods
+    set brand = #{brand,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      gross = #{gross,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=VARCHAR},
+      pack = #{pack,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      count = #{count,jdbcType=DOUBLE},
+      dr = #{dr,jdbcType=INTEGER},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 开启自动映射,当属性名与数据库中列名一直才可以开启自动映射 -->
+  <resultMap type="com.softeem.fresh.entity.Goods" id="goodsGroupResult" autoMapping="true">
+    <id column="gid" property="id"/>
+    <result column="gname" property="name"/>
+    <result column="gdr" property="dr"/>
+    <!-- 关联配置 -->
+    <association property="goodstype" javaType="com.softeem.fresh.entity.Goodstype" autoMapping="true"></association>
+  </resultMap>
+  <!-- 商品信息分页查询 -->
+  <select id="findByPage" parameterType="Map" resultMap="goodsGroupResult">
+    select go.id gid,go.brand,go.name gname,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address,
+    go.photo,go.msg,go.price,go.count,go.dr gdr,go.reserved1,
+    go.reserved2,go.reserved3,gr.name
+    from goods go,goodstype gr
+    where go.groupid=gr.id
+    and (go.dr=0 or go.dr=1)
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <!-- 商品列表的总记录数 -->
+  <select id="selectCount" resultType="int">
+  	select count(id) from goods where dr=0 or dr=1
+  </select>
+
+<!--  商品信息分页搜索查询  -->
+  <select id="findByPageSearch" parameterType="Map" resultMap="goodsGroupResult">
+    select go.id gid,go.brand,go.name gname,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address,
+    go.photo,go.msg,go.price,go.count,go.dr gdr,go.reserved1,
+    go.reserved2,go.reserved3,gr.name
+    from goods go,goodstype gr
+    where go.groupid=gr.id
+    and (go.dr=0 or go.dr=1)
+    <if test="search!=null">
+      <bind name="searchName" value="'%'+search+'%'"/>
+      and (go.name like #{searchName} or go.brand like #{searchName} or go.groupid like #{searchName})
+    </if>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+<!--  搜索查询商品列表的总记录数  -->
+  <select id="selectSearchCount" resultType="int" parameterType="java.lang.String">
+    select count(id) from goods gos where (gos.dr=0 or gos.dr=1)
+    <if test="search!=null">
+      <bind name="searchName" value="'%'+search+'%'"/>
+      and (gos.name like #{searchName} or gos.brand like #{searchName} or gos.groupid like #{searchName})
+    </if>
+  </select>
+
+<!--  上下架商品查询信息  -->
+  <select id="findByPageDr" parameterType="Map" resultMap="goodsGroupResult">
+    select go.id gid,go.brand,go.name gname,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address,
+    go.photo,go.msg,go.price,go.count,go.dr gdr,go.reserved1,
+    go.reserved2,go.reserved3,gr.name
+    from goods go,goodstype gr
+    where go.groupid=gr.id
+    and go.dr = #{typeDr}
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+<!--  上下架商品的总数  -->
+  <select id="selectCountDr" parameterType="int" resultType="int">
+  	select count(id) from goods where dr = #{typeDr}
+  </select>
+
+<!--  上下架商品搜索查询信息  -->
+  <select id="findByPageSearchDr" parameterType="Map" resultMap="goodsGroupResult">
+    select go.id gid,go.brand,go.name gname,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address,
+    go.photo,go.msg,go.price,go.count,go.dr gdr,go.reserved1,
+    go.reserved2,go.reserved3,gr.name
+    from goods go,goodstype gr
+    where go.groupid=gr.id
+    and go.dr = #{typeDr}
+    <if test="search!=null">
+      <bind name="searchName" value="'%'+search+'%'"/>
+      and (go.name like #{searchName} or go.brand like #{searchName} or go.groupid like #{searchName})
+    </if>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+<!--  搜索查询上下架商品的总数  -->
+  <select id="selectSearchCountDr" parameterType="Map" resultType="int">
+    select count(id) from goods gos where gos.dr = #{typeDr}
+    <if test="search!=null">
+      <bind name="searchName" value="'%'+search+'%'"/>
+      and (gos.name like #{searchName} or gos.brand like #{searchName} or gos.groupid like #{searchName})
+    </if>
+  </select>
+
+  <!--  商品上架  -->
+  <update id="goodsUp" parameterType="java.lang.String">
+    update goods set dr = 0 where id = #{id}
+  </update>
+
+  <!--  商品下架  -->
+  <update id="goodsDown" parameterType="java.lang.String">
+    update goods set dr = 1 where id = #{id}
+  </update>
+
+  <!--  商品删除  -->
+  <update id="goodsDelete" parameterType="java.lang.String">
+    update goods set dr = 2 where id = #{id}
+  </update>
+
+  <!--  批量删除  -->
+  <update id="deleteAll">
+    update goods set dr = 2 where id in
+    <foreach collection="array" open="(" close=")" item="item" separator="," >
+      #{item}
+    </foreach>
+  </update>
+
+  <!--  商品详情  -->
+  <select id="goodsDetail" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where photo = #{photo}
+  </select>
+
+  <!--  商品编辑  -->
+  <update id="goodsUpdate" parameterType="Map">
+    update goods set price = #{price},
+    count = #{count}
+    where id = #{id}
+  </update>
+
+<!--  主页商品信息  -->
+  <select id="indexList" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods where dr = 0
+  </select>
+
+<!--  更多商品信息  -->
+  <select id="readMore" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where groupid = #{groupid}
+    and dr = 0
+  </select>
+
+<!--  搜索查询商品信息  -->
+  <select id="goodsSearch" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where dr = 0
+    <if test="search!=null">
+      <bind name="searchName" value="'%'+search+'%'"/>
+      and (name like #{searchName} or brand like #{searchName} or groupid like #{searchName})
+    </if>
+  </select>
+
+<!--  更新商品的库存  -->
+  <update id="updateGoodsCount" parameterType="Map">
+    update goods set count = #{count}
+    where id = #{id}
+  </update>
+</mapper>

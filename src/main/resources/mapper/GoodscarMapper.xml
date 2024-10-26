@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softeem.fresh.mapper.GoodscarMapper">
+  <resultMap id="BaseResultMap" type="com.softeem.fresh.entity.Goodscar">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="goodsid" jdbcType="VARCHAR" property="goodsid" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="count" jdbcType="DOUBLE" property="count" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.softeem.fresh.entity.Goodscar">
+    <result column="reserved3" jdbcType="LONGVARCHAR" property="reserved3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goodsid, userid, dr, count, reserved1, reserved2
+  </sql>
+  <sql id="Blob_Column_List">
+    reserved3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goodscar
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goodscar
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.softeem.fresh.entity.Goodscar">
+    insert into goodscar (id, goodsid, userid, 
+      dr, count, reserved1, 
+      reserved2, reserved3)
+    values (#{id,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{dr,jdbcType=INTEGER}, #{count,jdbcType=DOUBLE}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softeem.fresh.entity.Goodscar">
+    insert into goodscar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsid != null">
+        goodsid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="reserved1 != null">
+        reserved1,
+      </if>
+      <if test="reserved2 != null">
+        reserved2,
+      </if>
+      <if test="reserved3 != null">
+        reserved3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=DOUBLE},
+      </if>
+      <if test="reserved1 != null">
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        #{reserved3,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softeem.fresh.entity.Goodscar">
+    update goodscar
+    <set>
+      <if test="goodsid != null">
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=DOUBLE},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.softeem.fresh.entity.Goodscar">
+    update goodscar
+    set goodsid = #{goodsid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      count = #{count,jdbcType=DOUBLE},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR},
+      reserved3 = #{reserved3,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softeem.fresh.entity.Goodscar">
+    update goodscar
+    set goodsid = #{goodsid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      count = #{count,jdbcType=DOUBLE},
+      reserved1 = #{reserved1,jdbcType=VARCHAR},
+      reserved2 = #{reserved2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 开启自动映射,当属性名与数据库中列名一直才可以开启自动映射 -->
+  <resultMap type="com.softeem.fresh.entity.Goodscar" id="goodscarGoodsResult" autoMapping="true">
+    <id column="gid" property="id"/>
+    <result column="gcount" property="count"/>
+    <result column="gdr" property="dr"/>
+    <result column="greserved1" property="reserved1"/>
+    <!-- 关联配置 -->
+    <association property="goods" javaType="com.softeem.fresh.entity.Goods" autoMapping="true"></association>
+  </resultMap>
+<!--  通过用户查找购物车信息-->
+  <select id="findGoodscarByUserId" parameterType="java.lang.String" resultMap="goodscarGoodsResult">
+    select go.id,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address,
+    go.photo,go.msg,go.price,go.count,go.dr,go.reserved1,
+    go.reserved2,go.reserved3,gc.id gid,gc.goodsid,
+    gc.userid,gc.dr gdr,gc.count gcount,gc.reserved1 greserved1
+    from goods go,goodscar gc
+    where gc.goodsid=go.id
+    and gc.dr = 1
+    and gc.userid = #{userid}
+  </select>
+
+<!--  同一件商品更新数量-->
+  <update id="updateGoodsCarByCount" parameterType="Map">
+    update goodscar
+    set count = #{count},
+    reserved1 = #{reserved1}
+    where goodsid = #{goodsid}
+  </update>
+
+<!--  将新的商品加入购物车-->
+  <insert id="addGoodsCar" parameterType="Map">
+    insert into goodscar (id, goodsid, userid,
+      dr, count, reserved1)
+    values (#{id}, #{goodsid}, #{userid},
+      #{dr}, #{count}, #{reserved1})
+  </insert>
+
+<!--  购物车的单个商品逻辑删除-->
+  <update id="goodsDelete" parameterType="java.lang.String">
+    update goodscar
+    set dr = 2
+    where id = #{id}
+  </update>
+
+<!--  结算商品修改商品的状态-->
+  <update id="totalAllGoods">
+    update goodscar
+    set dr = 0
+    where id in
+    <foreach collection="array" open="(" close=")" item="item" separator="," >
+      #{item}
+    </foreach>
+  </update>
+
+<!--  查看修改成订单商品的信息-->
+  <select id="findGoodscarDrByuserId" parameterType="java.lang.String" resultMap="goodscarGoodsResult">
+    select go.id,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address,
+    go.photo,go.msg,go.price,go.count,go.dr,go.reserved1,
+    go.reserved2,go.reserved3,gc.id gid,gc.goodsid,
+    gc.userid,gc.dr gdr,gc.count gcount,gc.reserved1 greserved1
+    from goods go,goodscar gc
+    where gc.goodsid=go.id
+    and gc.dr = 0
+    and gc.userid = #{userid}
+  </select>
+
+<!--  取消订单修改商品的状态-->
+  <update id="updateGoodscarDr" parameterType="java.lang.String">
+    update goodscar
+    set dr = 1
+    where id = #{id}
+  </update>
+
+<!--  购物车中修改商品数量-->
+  <update id="updateGoodsCarCount" parameterType="Map">
+    update goodscar
+    set count = #{count},
+    reserved1 = #{reserved1}
+    where id = #{id}
+  </update>
+
+<!--  查询修改数量的商品-->
+  <select id="findGoodscarDrById" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goodscar
+    where id in
+    <foreach collection="array" open="(" close=")" item="item" separator="," >
+      #{item}
+    </foreach>
+  </select>
+</mapper>

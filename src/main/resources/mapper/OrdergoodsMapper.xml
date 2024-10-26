@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softeem.fresh.mapper.OrdergoodsMapper">
+  <resultMap id="BaseResultMap" type="com.softeem.fresh.entity.Ordergoods">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="goodsid" jdbcType="VARCHAR" property="goodsid" />
+    <result column="goodscarid" jdbcType="VARCHAR" property="goodscarid" />
+    <result column="dr" jdbcType="INTEGER" property="dr" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userid, goodsid, goodscarid, dr, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ordergoods
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ordergoods
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.softeem.fresh.entity.Ordergoods">
+    insert into ordergoods (id, userid, goodsid, goodscarid,
+      dr, address)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, 
+      #{goodscarid,jdbcType=VARCHAR}, #{dr,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softeem.fresh.entity.Ordergoods">
+    insert into ordergoods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="goodsid != null">
+        goodsid,
+      </if>
+      <if test="goodscarid != null">
+        goodscarid,
+      </if>
+      <if test="dr != null">
+        dr,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodscarid != null">
+        #{goodscarid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softeem.fresh.entity.Ordergoods">
+    update ordergoods
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodscarid != null">
+        goodscarid = #{goodscarid,jdbcType=VARCHAR},
+      </if>
+      <if test="dr != null">
+        dr = #{dr,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softeem.fresh.entity.Ordergoods">
+    update ordergoods
+    set userid = #{userid,jdbcType=VARCHAR},
+      goodsid = #{goodsid,jdbcType=VARCHAR},
+      goodscarid = #{goodscarid,jdbcType=VARCHAR},
+      dr = #{dr,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+<!--  添加订单-->
+  <insert id="addOrdergoods" parameterType="Map">
+    insert into ordergoods (id, userid, goodsid, goodscarid,
+      dr)
+    values (#{id}, #{userid}, #{goodsid},
+      #{goodscarid}, #{dr})
+  </insert>
+
+  <resultMap type="com.softeem.fresh.entity.Ordergoods" id="orderGoodscarGoodsResult" autoMapping="true">
+    <id column="oid" property="id"/>
+    <result column="ouserid" property="userid"/>
+    <result column="ogoodsid" property="goodsid"/>
+    <result column="ogoodscarid" property="goodscarid"/>
+    <result column="odr" property="dr"/>
+    <result column="oaddress" property="address"/>
+    <!-- 关联配置 -->
+    <association property="goods" javaType="com.softeem.fresh.entity.Goods" autoMapping="true">
+      <id column="gid" property="id"/>
+      <result column="gcount" property="count"/>
+      <result column="gaddress" property="address"/>
+      <result column="gdr" property="dr"/>
+      <result column="greserved1" property="reserved1"/>
+    </association>
+    <association property="goodscar" javaType="com.softeem.fresh.entity.Goodscar" autoMapping="true">
+      <id column="gcid" property="id"/>
+      <result column="gcuserid" property="userid"/>
+      <result column="gcgoodsid" property="goodsid"/>
+      <result column="gcdr" property="dr"/>
+      <result column="gccount" property="count"/>
+      <result column="gcreserved1" property="reserved1"/>
+    </association>
+  </resultMap>
+<!--  查询当前用户的订单-->
+  <select id="selectOrderByuserId" parameterType="java.lang.String" resultMap="orderGoodscarGoodsResult">
+    select go.id gid,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address gaddress,
+    go.photo,go.msg,go.price,go.count gcount,go.dr gdr,go.reserved1 greserved1,
+    go.reserved2,go.reserved3,gc.id gcid,gc.goodsid gcgoodsid,
+    gc.userid gcuserid,gc.dr gcdr,gc.count gccount,gc.reserved1 gcreserved1,ogs.id oid,
+    ogs.userid ouserid,ogs.goodsid ogoodsid,ogs.goodscarid ogoodscarid,
+    ogs.dr odr,ogs.address oaddress
+    from goods go,goodscar gc,ordergoods ogs
+    where ogs.goodsid=go.id
+    and ogs.goodscarid=gc.id
+    and ogs.dr = 0
+    and ogs.userid = #{userid}
+  </select>
+
+<!--  取消订单-->
+  <update id="cancelOrder" parameterType="java.lang.String">
+    update ordergoods
+    set dr = 1
+    where id = #{id}
+  </update>
+
+<!--  添加地址-->
+  <update id="addAddress" parameterType="Map">
+    update ordergoods
+    set address = #{address}
+    where dr = 0
+    and goodscarid in
+    <foreach collection="gcids" open="(" close=")" item="item" separator="," >
+      #{item}
+    </foreach>
+  </update>
+
+<!--  查询所有用户的订单-->
+  <select id="ordersList" resultMap="orderGoodscarGoodsResult">
+    select go.id gid,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address gaddress,
+    go.photo,go.msg,go.price,go.count gcount,go.dr gdr,go.reserved1 greserved1,
+    go.reserved2,go.reserved3,gc.id gcid,gc.goodsid gcgoodsid,
+    gc.userid gcuserid,gc.dr gcdr,gc.count gccount,gc.reserved1 gcreserved1,ogs.id oid,
+    ogs.userid ouserid,ogs.goodsid ogoodsid,ogs.goodscarid ogoodscarid,
+    ogs.dr odr,ogs.address oaddress
+    from goods go,goodscar gc,ordergoods ogs
+    where ogs.goodsid=go.id
+    and ogs.goodscarid=gc.id
+    and (ogs.dr = 0 or ogs.dr = 3)
+  </select>
+
+<!--  查询待发货的订单-->
+  <select id="ordersWaitList" resultMap="orderGoodscarGoodsResult">
+    select go.id gid,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address gaddress,
+    go.photo,go.msg,go.price,go.count gcount,go.dr gdr,go.reserved1 greserved1,
+    go.reserved2,go.reserved3,gc.id gcid,gc.goodsid gcgoodsid,
+    gc.userid gcuserid,gc.dr gcdr,gc.count gccount,gc.reserved1 gcreserved1,ogs.id oid,
+    ogs.userid ouserid,ogs.goodsid ogoodsid,ogs.goodscarid ogoodscarid,
+    ogs.dr odr,ogs.address oaddress
+    from goods go,goodscar gc,ordergoods ogs
+    where ogs.goodsid=go.id
+    and ogs.goodscarid=gc.id
+    and ogs.dr = 0
+  </select>
+
+<!--  查询已发货的订单-->
+  <select id="ordersEndList" resultMap="orderGoodscarGoodsResult">
+    select go.id gid,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address gaddress,
+    go.photo,go.msg,go.price,go.count gcount,go.dr gdr,go.reserved1 greserved1,
+    go.reserved2,go.reserved3,gc.id gcid,gc.goodsid gcgoodsid,
+    gc.userid gcuserid,gc.dr gcdr,gc.count gccount,gc.reserved1 gcreserved1,ogs.id oid,
+    ogs.userid ouserid,ogs.goodsid ogoodsid,ogs.goodscarid ogoodscarid,
+    ogs.dr odr,ogs.address oaddress
+    from goods go,goodscar gc,ordergoods ogs
+    where ogs.goodsid=go.id
+    and ogs.goodscarid=gc.id
+    and ogs.dr = 3
+  </select>
+
+<!--  进行发货-->
+  <update id="orderEnsure" parameterType="java.lang.String">
+    update ordergoods
+    set dr = 3
+    where id = #{id}
+  </update>
+
+<!--  查询单个订单的信息-->
+  <select id="selectOrderById" parameterType="java.lang.String" resultMap="orderGoodscarGoodsResult">
+    select go.id gid,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address gaddress,
+    go.photo,go.msg,go.price,go.count gcount,go.dr gdr,go.reserved1 greserved1,
+    go.reserved2,go.reserved3,gc.id gcid,gc.goodsid gcgoodsid,
+    gc.userid gcuserid,gc.dr gcdr,gc.count gccount,gc.reserved1 gcreserved1,ogs.id oid,
+    ogs.userid ouserid,ogs.goodsid ogoodsid,ogs.goodscarid ogoodscarid,
+    ogs.dr odr,ogs.address oaddress
+    from goods go,goodscar gc,ordergoods ogs
+    where ogs.goodsid=go.id
+    and ogs.goodscarid=gc.id
+    and ogs.id = #{id}
+  </select>
+<!--  查询当前用户已确认的订单-->
+  <select id="ordersEndListById" resultMap="orderGoodscarGoodsResult">
+    select go.id gid,go.brand,go.name,go.no,go.gross,
+    go.place,go.weight,go.groupid,go.pack,go.address gaddress,
+    go.photo,go.msg,go.price,go.count gcount,go.dr gdr,go.reserved1 greserved1,
+    go.reserved2,go.reserved3,gc.id gcid,gc.goodsid gcgoodsid,
+    gc.userid gcuserid,gc.dr gcdr,gc.count gccount,gc.reserved1 gcreserved1,ogs.id oid,
+    ogs.userid ouserid,ogs.goodsid ogoodsid,ogs.goodscarid ogoodscarid,
+    ogs.dr odr,ogs.address oaddress
+    from goods go,goodscar gc,ordergoods ogs
+    where ogs.goodsid=go.id
+    and ogs.goodscarid=gc.id
+    and ogs.dr = 3
+    and ogs.userid = #{userid}
+  </select>
+</mapper>
